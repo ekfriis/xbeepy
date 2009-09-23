@@ -93,7 +93,7 @@ RemoteCommandResponseData = Struct("RemoteCommandResponse",
 ZigBeeTransmitRequestData = Struct("ZigBeeTransmitRequest",
    Embed(StandardPrelude),
    Embed(TXAdressing),
-   UBInt8("BroadcastRadius"),
+   UBInt8("broadcast_uadius"),
    UBInt8("Options"),
    OptionalGreedyRepeater(UBInt8("RFData")),
 )
@@ -101,36 +101,36 @@ ZigBeeTransmitRequestData = Struct("ZigBeeTransmitRequest",
 ExplAddrZigBeeCmdFrameData = Struct("ExplAddrZigBeeCmdFrame",
    Embed(StandardPrelude),
    Embed(TXAddressing),
-   UBInt8("SourceEndpoint"),
-   UBInt8("DestinationEndpoint"),
-   Const(UBInt8("Reserved"), 0),
-   UBInt8("ClusterID"),
-   Const(UBInt16("ProfileID"), 0xC105), # multiple profile IDs not supported
-   UBInt8("BroadcastRadius"),
-   OneOf(UBInt8("Options"), [0x00, 0x08]),
-   OptionalGreedyRepeater(UBInt8("RFData"))
+   UBInt8("source_endpoint"),
+   UBInt8("destination_endpoint"),
+   Const(UBInt8("reserved"), 0),
+   UBInt8("cluster_id"),
+   Const(UBInt16("profile_id"), 0xC105), # multiple profile IDs not supported
+   UBInt8("broadcast_radius"),
+   OneOf(UBInt8("options"), [0x00, 0x08]),
+   OptionalGreedyRepeater(UBInt8("rf_data"))
 )
 
 ZigBeeTransmitStatusData = Struct("ZigBeeTransmitStatusData",
    Embed(StandardPrelude),
-   UBInt16("SourceNetworkAddress"),
-   UBInt8("TransmitRetryCount"),
-   UBInt8("DeliveryStatus"),
-   UBInt8("DiscoveryStatus"),
+   UBInt16("source_network_address"),
+   UBInt8("transmit_retry_count"),
+   UBInt8("delivery_status"),
+   UBInt8("discovery_status"),
 )
 
-ZigBeeReceivePacketData = Struct("ZigBeeReceivePacket",
+zigBeeReceivePacketData = Struct("ZigBeeReceivePacket",
    Embed(StandardPrelude),
    Embed(RXAddressing)
-   OneOf(UBInt8("Options"), [0x01, 0x02]),
-   OptionalGreedyRepeater(UBInt8("RFData"))
+   OneOf(UBInt8("options"), [0x01, 0x02]),
+   OptionalGreedyRepeater(UBInt8("rf_data"))
 )
 
 ZigBeeExplRXIndicatorData = Struct("ZigBeeExplRXIndicator",
    Embed(StandardPrelude),
    Embed(RXAddressing),
-   UBInt8("SourceEndpoint"),
-   UBInt8("DestinationEndpoint"),
+   UBInt8("source_endpoint"),
+   UBInt8("destination_endpoint"),
    UBInt16("ClusterID"),
    UBInt16("ProfileID"),
    UBInt8("Options"),
